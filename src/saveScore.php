@@ -8,15 +8,15 @@
 	$username = $_POST['username'];
 	$score = $_POST['score'];
 
-	$connect = mysql_connect(Constants::DB_HOST, Constants::DB_USER, Constants::DB_PASSWORD);
-	mysql_select_db("hallaby_pony");
+	$connect = mysqli_connect(Constants::DB_HOST, Constants::DB_USER, Constants::DB_PASSWORD);
+	mysqli_select_db($connect,"hallaby_pony");
 
-	$username = mysql_real_escape_string($username);
+	$username = mysqli_real_escape_string($connect,$username);
 
 	if($username) {
 		$insert = "INSERT INTO high_scores(username,score,score_date) VALUES ('$username',$score,NOW())";
-		$insertquery = mysql_query($insert, $connect);
+		$insertquery = mysqli_query($connect,$insert);
 	}
 
-	mysql_close();
+	mysqli_close($connect);
 ?>
